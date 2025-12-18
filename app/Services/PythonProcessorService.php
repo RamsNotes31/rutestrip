@@ -7,32 +7,40 @@ use Symfony\Component\Process\Process;
 
 class PythonProcessorService
 {
-    private string $pythonPath;
+    private array $pythonCommand;
     private string $scriptPath;
     private array $env;
 
     public function __construct()
     {
-        // Sesuaikan path Python sesuai sistem
-        $this->pythonPath = config('services.python.path', 'python');
+        // Use py launcher with Python 3.11 for Windows compatibility
+        // This avoids Python 3.14 compatibility issues with sentence-transformers
+        $pythonPath = config('services.python.path', 'py');
+
+        // Check if it's using py launcher (Windows)
+        if ($pythonPath === 'py' || str_ends_with($pythonPath, 'py.exe')) {
+            $this->pythonCommand = ['py', '-3.11'];
+        } else {
+            $this->pythonCommand = [$pythonPath];
+        }
+
         $this->scriptPath = base_path('python/processor.py');
-        
-        // Setup environment untuk memastikan Python menemukan packages user
+
+        // Setup environment
         $userHome = getenv('USERPROFILE') ?: getenv('HOME') ?: '';
-        $pythonUserSite = $userHome . '\AppData\Roaming\Python\Python314\site-packages';
-        
+
         $this->env = array_merge($_SERVER, $_ENV, [
-            'PYTHONPATH' => $pythonUserSite,
-            'PYTHONUSERBASE' => $userHome . '\AppData\Roaming\Python',
-            'PATH' => getenv('PATH'),
+            'PATH'             => getenv('PATH'),
+            'PYTHONIOENCODING' => 'utf-8',
         ]);
     }
 
     /**
      * Create a configured process
      */
-    private function createProcess(array $command): Process
+    private function createProcess(array $additionalArgs): Process
     {
+        $command = array_merge($this->pythonCommand, [$this->scriptPath], $additionalArgs);
         $process = new Process($command);
         $process->setEnv($this->env);
         $process->setWorkingDirectory(base_path('python'));
@@ -45,8 +53,6 @@ class PythonProcessorService
     public function ingest(string $gpxFilePath): array
     {
         $process = $this->createProcess([
-            $this->pythonPath,
-            $this->scriptPath,
             '--mode', 'ingest',
             '--gpx', $gpxFilePath,
         ]);
@@ -75,8 +81,6 @@ class PythonProcessorService
     public function search(string $query, array $routesData): array
     {
         $process = $this->createProcess([
-            $this->pythonPath,
-            $this->scriptPath,
             '--mode', 'search',
             '--query', $query,
             '--data', json_encode($routesData),
