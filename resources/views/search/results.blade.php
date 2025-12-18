@@ -45,6 +45,47 @@
         <p class="text-slate-500">Ditemukan <span class="font-bold text-slate-700">{{ $results->count() }}</span> jalur yang cocok</p>
     </div>
 
+    <!-- Cosine Similarity Formula Explanation -->
+    <div class="mb-8 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-6 border border-indigo-100">
+        <div class="flex items-start space-x-4">
+            <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                </svg>
+            </div>
+            <div class="flex-1">
+                <h3 class="text-lg font-bold text-indigo-800 mb-2">Metode: Cosine Similarity</h3>
+                <p class="text-sm text-slate-600 mb-3">
+                    Tingkat kemiripan dihitung menggunakan rumus Cosine Similarity antara vektor query
+                    <span class="font-mono bg-white px-1 rounded">Q</span> dan vektor jalur
+                    <span class="font-mono bg-white px-1 rounded">D</span>:
+                </p>
+                <div class="bg-white rounded-xl p-4 mb-3 text-center overflow-x-auto">
+                    <code class="text-lg font-mono text-indigo-700">
+                        Sim(Q, D) = (Q · D) / (||Q|| × ||D||)
+                    </code>
+                </div>
+                <div class="grid sm:grid-cols-3 gap-3 text-xs">
+                    <div class="bg-white/60 rounded-lg p-2">
+                        <span class="font-semibold text-indigo-700">Q · D</span>
+                        <span class="text-slate-500"> = Dot product vektor</span>
+                    </div>
+                    <div class="bg-white/60 rounded-lg p-2">
+                        <span class="font-semibold text-indigo-700">||Q||</span>
+                        <span class="text-slate-500"> = Magnitude vektor query</span>
+                    </div>
+                    <div class="bg-white/60 rounded-lg p-2">
+                        <span class="font-semibold text-indigo-700">||D||</span>
+                        <span class="text-slate-500"> = Magnitude vektor jalur</span>
+                    </div>
+                </div>
+                <p class="text-xs text-slate-500 mt-3">
+                    <strong>Model:</strong> SBERT (paraphrase-multilingual-MiniLM-L12-v2) menghasilkan vektor 384 dimensi
+                </p>
+            </div>
+        </div>
+    </div>
+
     <!-- Results Grid -->
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         @foreach($results as $index => $route)
@@ -123,6 +164,42 @@
                         </div>
                         <p class="text-lg font-bold text-slate-800">{{ $route->formatted_grade }}</p>
                         <p class="text-xs text-slate-500">Grade</p>
+                    </div>
+                </div>
+
+                <!-- SBERT Narrative Description -->
+                @if($route->narrative_text)
+                <div class="mb-4 p-4 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl border border-purple-100">
+                    <div class="flex items-start space-x-2">
+                        <svg class="w-5 h-5 text-purple-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                        <div>
+                            <p class="text-xs font-semibold text-purple-700 mb-1">Deskripsi AI (SBERT)</p>
+                            <p class="text-sm text-slate-600 leading-relaxed">{{ Str::limit($route->narrative_text, 150) }}</p>
+                        </div>
+                    </div>
+                </div>
+                @endif
+
+                <!-- Cosine Similarity Score -->
+                <div class="mb-4 p-3 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl border border-emerald-100">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                            </svg>
+                            <span class="text-sm font-medium text-emerald-700">Cosine Similarity</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-lg font-bold text-emerald-600">{{ number_format($route->similarity_score / 100, 4) }}</span>
+                            <span class="text-xs text-emerald-500 ml-1">({{ $route->similarity_score }}%)</span>
+                        </div>
+                    </div>
+                    <!-- Similarity Bar -->
+                    <div class="mt-2 h-2 bg-emerald-100 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full transition-all duration-500"
+                             style="width: {{ min($route->similarity_score, 100) }}%"></div>
                     </div>
                 </div>
 

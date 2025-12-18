@@ -10,6 +10,7 @@ class HikingRoute extends Model
 
     protected $fillable = [
         'name',
+        'description',
         'gpx_file_path',
         'distance_km',
         'elevation_gain_m',

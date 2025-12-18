@@ -13,26 +13,67 @@ class PythonProcessorService
 
     public function __construct()
     {
-        // Use py launcher with Python 3.11 for Windows compatibility
-        // This avoids Python 3.14 compatibility issues with sentence-transformers
-        $pythonPath = config('services.python.path', 'py');
+        // Try to find Python 3.11 executable
+        $pythonPath = $this->findPython311();
 
-        // Check if it's using py launcher (Windows)
-        if ($pythonPath === 'py' || str_ends_with($pythonPath, 'py.exe')) {
-            $this->pythonCommand = ['py', '-3.11'];
-        } else {
+        if ($pythonPath) {
             $this->pythonCommand = [$pythonPath];
+        } else {
+            // Use full path to py launcher (more reliable from PHP)
+            $this->pythonCommand = ['C:\\Windows\\py.exe', '-3.11'];
         }
 
         $this->scriptPath = base_path('python/processor.py');
 
-        // Setup environment
-        $userHome = getenv('USERPROFILE') ?: getenv('HOME') ?: '';
-
-        $this->env = array_merge($_SERVER, $_ENV, [
+        // Setup environment - copy all necessary Windows env vars
+        $this->env = [
             'PATH'             => getenv('PATH'),
             'PYTHONIOENCODING' => 'utf-8',
-        ]);
+            'USERPROFILE'      => getenv('USERPROFILE'),
+            'LOCALAPPDATA'     => getenv('LOCALAPPDATA'),
+            'APPDATA'          => getenv('APPDATA'),
+            'HOME'             => getenv('USERPROFILE'),
+            'SYSTEMROOT'       => getenv('SYSTEMROOT') ?: 'C:\\Windows',
+            'PROGRAMFILES'     => getenv('PROGRAMFILES') ?: 'C:\\Program Files',
+            'TEMP'             => getenv('TEMP') ?: sys_get_temp_dir(),
+            'TMP'              => getenv('TMP') ?: sys_get_temp_dir(),
+        ];
+    }
+
+    /**
+     * Find Python 3.11 executable path
+     */
+    private function findPython311(): ?string
+    {
+        // Check common Python 3.11 locations
+        $possiblePaths = [
+            'C:\\Python311\\python.exe',
+            'C:\\Python\\Python311\\python.exe',
+            getenv('LOCALAPPDATA') . '\\Programs\\Python\\Python311\\python.exe',
+            getenv('USERPROFILE') . '\\AppData\\Local\\Programs\\Python\\Python311\\python.exe',
+        ];
+
+        foreach ($possiblePaths as $path) {
+            if ($path && file_exists($path)) {
+                return $path;
+            }
+        }
+
+        // Try using where command to find python3.11
+        $process = new Process(['where', 'python']);
+        $process->run();
+
+        if ($process->isSuccessful()) {
+            $paths = explode("\n", trim($process->getOutput()));
+            foreach ($paths as $path) {
+                $path = trim($path);
+                if (strpos($path, '311') !== false || strpos($path, '3.11') !== false) {
+                    return $path;
+                }
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -80,15 +121,18 @@ class PythonProcessorService
      */
     public function search(string $query, array $routesData): array
     {
-        $process = $this->createProcess([
-            '--mode', 'search',
-            '--query', $query,
-            '--data', json_encode($routesData),
-        ]);
-
-        $process->setTimeout(120);
+        // Write data to temp file to avoid command line length limits
+        $tempFile = tempnam(sys_get_temp_dir(), 'rutestrip_search_');
+        file_put_contents($tempFile, json_encode($routesData));
 
         try {
+            $process = $this->createProcess([
+                '--mode', 'search',
+                '--query', $query,
+                '--data-file', $tempFile,
+            ]);
+
+            $process->setTimeout(120);
             $process->mustRun();
             $output = $process->getOutput();
             $result = json_decode($output, true);
@@ -101,6 +145,11 @@ class PythonProcessorService
         } catch (ProcessFailedException $exception) {
             Log::error('Python search failed: ' . $exception->getMessage());
             throw new \Exception('Failed to search routes: ' . $process->getErrorOutput());
+        } finally {
+            // Clean up temp file
+            if (file_exists($tempFile)) {
+                unlink($tempFile);
+            }
         }
     }
 }

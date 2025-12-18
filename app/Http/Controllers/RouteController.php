@@ -38,8 +38,9 @@ class RouteController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'     => 'required|string|max:255',
-            'gpx_file' => 'required|file|max:10240', // Max 10MB
+            'name'        => 'required|string|max:255',
+            'description' => 'nullable|string|max:2000',
+            'gpx_file'    => 'required|file|max:10240', // Max 10MB
         ]);
 
         // Validate file extension
@@ -58,15 +59,22 @@ class RouteController extends Controller
             // Process GPX with Python
             $result = $this->pythonService->ingest($fullPath);
 
+            // Combine manual description with auto-generated narrative (Data Fusion)
+            $narrativeText = $result['narrative_text'] ?? '';
+            if ($request->filled('description')) {
+                $narrativeText = $request->description . ' ' . $narrativeText;
+            }
+
             // Create hiking route record
             $route = HikingRoute::create([
                 'name'                   => $request->name,
+                'description'            => $request->description,
                 'gpx_file_path'          => $filePath,
                 'distance_km'            => $result['distance_km'] ?? null,
                 'elevation_gain_m'       => $result['elevation_gain_m'] ?? null,
                 'naismith_duration_hour' => $result['naismith_duration_hour'] ?? null,
                 'average_grade_pct'      => $result['average_grade_pct'] ?? null,
-                'narrative_text'         => $result['narrative_text'] ?? null,
+                'narrative_text'         => $narrativeText,
                 'sbert_embedding'        => $result['embedding'] ?? null,
             ]);
 

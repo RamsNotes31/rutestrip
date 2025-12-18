@@ -53,6 +53,24 @@
                 @enderror
             </div>
 
+            <!-- Description (Optional) -->
+            <div class="mb-6">
+                <label for="description" class="block text-sm font-semibold text-slate-700 mb-2">
+                    Deskripsi Jalur <span class="text-slate-400 font-normal">(Opsional)</span>
+                </label>
+                <textarea name="description"
+                          id="description"
+                          rows="4"
+                          class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all resize-none"
+                          placeholder="Contoh: Jalur dengan vegetasi hutan pinus, sumber air tersedia di pos 2, pemandangan sabana yang indah...">{{ old('description') }}</textarea>
+                <p class="mt-2 text-xs text-slate-500">
+                    Tambahkan informasi seperti: tipe vegetasi, ketersediaan sumber air, panorama, kondisi medan, dll.
+                </p>
+                @error('description')
+                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
+
             <!-- GPX File Upload -->
             <div class="mb-8">
                 <label for="gpx_file" class="block text-sm font-semibold text-slate-700 mb-2">
