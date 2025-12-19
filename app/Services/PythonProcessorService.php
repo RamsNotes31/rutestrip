@@ -152,4 +152,32 @@ class PythonProcessorService
             }
         }
     }
+
+    /**
+     * Get SBERT embedding for a query text only (FAST - single embedding)
+     */
+    public function getQueryEmbedding(string $query): array
+    {
+        $process = $this->createProcess([
+            '--mode', 'embed',
+            '--query', $query,
+        ]);
+
+        $process->setTimeout(60);
+
+        try {
+            $process->mustRun();
+            $output = $process->getOutput();
+            $result = json_decode($output, true);
+
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                throw new \Exception('Invalid JSON response from Python: ' . $output);
+            }
+
+            return $result['embedding'] ?? [];
+        } catch (ProcessFailedException $exception) {
+            Log::error('Python embed failed: ' . $exception->getMessage());
+            throw new \Exception('Failed to get query embedding: ' . $process->getErrorOutput());
+        }
+    }
 }

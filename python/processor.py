@@ -268,7 +268,7 @@ def generate_embedding(text):
 
 
 def mode_ingest(gpx_path):
-    """Process GPX file and return statistics + embedding"""
+    """Process GPX file and return statistics + embedding + coordinates"""
     try:
         gpx, points = parse_gpx(gpx_path)
         
@@ -279,6 +279,10 @@ def mode_ingest(gpx_path):
         narrative = generate_narrative(stats)
         embedding = generate_embedding(narrative)
         
+        # Extract simplified coordinates for map display (every 10th point to reduce data)
+        step = max(1, len(points) // 100)  # Max ~100 points for performance
+        route_coords = [[p['lat'], p['lon']] for p in points[::step]]
+        
         result = {
             'success': True,
             'distance_km': stats['distance_km'],
@@ -286,7 +290,8 @@ def mode_ingest(gpx_path):
             'naismith_duration_hour': stats['naismith_duration_hour'],
             'average_grade_pct': stats['average_grade_pct'],
             'narrative_text': narrative,
-            'embedding': embedding
+            'embedding': embedding,
+            'route_coordinates': route_coords
         }
         
         return result
@@ -342,12 +347,35 @@ def mode_search(query, routes_data):
         }
 
 
+def mode_embed(query_text: str) -> dict:
+    """
+    FAST mode: Generate embedding for query text only (no file processing)
+    """
+    try:
+        SentenceTransformer = get_sentence_transformer()
+        model = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
+        
+        # Preprocess query
+        processed_query = preprocess_text(query_text, remove_stopwords=True)
+        
+        # Generate embedding
+        embedding = model.encode(processed_query).tolist()
+        
+        return {
+            'success': True,
+            'embedding': embedding,
+            'processed_query': processed_query
+        }
+    except Exception as e:
+        return {'success': False, 'error': str(e)}
+
+
 def main():
     parser = argparse.ArgumentParser(description='RuteStrip GPX Processor')
-    parser.add_argument('--mode', required=True, choices=['ingest', 'search'],
-                        help='Processing mode: ingest or search')
+    parser.add_argument('--mode', required=True, choices=['ingest', 'search', 'embed'],
+                        help='Processing mode: ingest, search, or embed')
     parser.add_argument('--gpx', help='Path to GPX file (for ingest mode)')
-    parser.add_argument('--query', help='Search query text (for search mode)')
+    parser.add_argument('--query', help='Search query text (for search/embed mode)')
     parser.add_argument('--data', help='JSON data of routes with embeddings (for search mode)')
     parser.add_argument('--data-file', help='Path to JSON file containing routes data (for search mode)')
     
@@ -373,8 +401,15 @@ def main():
             sys.exit(1)
         result = mode_search(args.query, data)
     
+    elif args.mode == 'embed':
+        if not args.query:
+            print(json.dumps({'success': False, 'error': 'Query required for embed mode'}))
+            sys.exit(1)
+        result = mode_embed(args.query)
+    
     print(json.dumps(result, ensure_ascii=False))
 
 
 if __name__ == '__main__':
     main()
+

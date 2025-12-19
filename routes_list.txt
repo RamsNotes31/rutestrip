@@ -1,0 +1,39 @@
+1: Argopuro - Bremi Baderan
+2: Agung - Besakih
+3: Agung - Pura Pasar Agung
+4: Anak Krakatau
+5: Argopuro - Bremi Baderan
+6: Arjuno - Lawang
+7: Arjuno - Tambak Watu
+8: Butak - Sirah Kencong
+9: Butak - Tuyomerto
+10: Cikuray - Pemancar
+11: Ciremai - Apuy Linggarjati
+12: Ciremai - Cibuluh - Linggarjati
+13: Ciremai - Linggarjati Palutungan
+14: Gede-Pangrango Semua Jalur
+15: Guntur Cipanas
+16: Guntur Masigit - Cibeureum
+17: Guntur Masigit - Tanjung Karya
+18: Guntur Masigit - Warung Tanjung
+19: Ijen - Sempol
+20: Mt. Argopuro Baderan to Bremi
+21: Mt. Arjuno via Tretes
+22: Mt. Ciremai via Apuy
+23: Mt. Ciremai via Linggasana
+24: Mt. Ciremai via Palutungan
+25: Mt. Ciremai via Sadarehe
+26: Mt. Lawu via Cemoro Sewu
+27: Mt. Lawu via Cetho
+28: Mt. Lawu via Tambak
+29: Mt. Merbabu via Selo
+30: Mt. Merbabu via Suwanting
+31: Mt. Merbabu via Thekelan
+32: Mt. Semeru
+33: Mt. Sindoro via Kledung
+34: Mt. Slamet via Bambangan
+35: Mt. Slamet via Dipajaya
+36: Mt. Slamet via Guci
+37: Mt. Sumbing via Batursari
+38: Mt. Sumbing via Bowongso
+39: Mt. Sumbing via Butuh Kaliangkrik

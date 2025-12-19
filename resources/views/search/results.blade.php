@@ -16,6 +16,9 @@
         <h1 class="text-3xl font-bold text-slate-800 mb-2">Hasil Rekomendasi</h1>
         <p class="text-slate-600">
             Pencarian: <span class="font-semibold text-emerald-600">"{{ $query }}"</span>
+            @if(isset($searchTime))
+            <span class="ml-2 text-sm bg-slate-100 px-2 py-1 rounded text-slate-500">⚡ {{ $searchTime }} ms</span>
+            @endif
         </p>
     </div>
 

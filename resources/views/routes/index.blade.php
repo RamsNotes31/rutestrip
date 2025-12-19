@@ -39,17 +39,40 @@
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         @foreach($routes as $route)
         <div class="mountain-card bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-100 group">
-            <!-- Card Header -->
-            <div class="bg-mountain-gradient p-6">
-                <h3 class="text-xl font-bold text-white mb-2 line-clamp-2">{{ $route->name }}</h3>
-                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium
-                    @if($route->difficulty_level === 'Mudah') bg-green-100 text-green-800
-                    @elseif($route->difficulty_level === 'Sedang') bg-yellow-100 text-yellow-800
-                    @elseif($route->difficulty_level === 'Sulit') bg-orange-100 text-orange-800
-                    @else bg-red-100 text-red-800
-                    @endif">
-                    {{ $route->difficulty_level }}
-                </span>
+            <!-- Card Map/Image -->
+            <div class="relative h-40 overflow-hidden">
+                @if($route->route_coordinates && count($route->route_coordinates) > 0)
+                    <!-- Leaflet Map -->
+                    <div id="map-{{ $route->id }}" class="w-full h-full z-0"></div>
+                @else
+                    <!-- Fallback Image -->
+                    @php
+                        $imageSrc = asset('images/mountains/default.png');
+                        if ($route->image_path) {
+                            $imageSrc = str_starts_with($route->image_path, 'http')
+                                ? $route->image_path
+                                : asset('storage/' . $route->image_path);
+                        }
+                    @endphp
+                    <img src="{{ $imageSrc }}"
+                         alt="{{ $route->name }}"
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                         loading="lazy">
+                @endif
+                <!-- Gradient Overlay -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none"></div>
+                <!-- Title on Image/Map -->
+                <div class="absolute bottom-0 left-0 right-0 p-4 z-10">
+                    <h3 class="text-xl font-bold text-white mb-2 line-clamp-2 drop-shadow-lg">{{ $route->name }}</h3>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium
+                        @if($route->difficulty_level === 'Mudah') bg-green-100 text-green-800
+                        @elseif($route->difficulty_level === 'Sedang') bg-yellow-100 text-yellow-800
+                        @elseif($route->difficulty_level === 'Sulit') bg-orange-100 text-orange-800
+                        @else bg-red-100 text-red-800
+                        @endif">
+                        {{ $route->difficulty_level }}
+                    </span>
+                </div>
             </div>
 
             <!-- Card Body -->
@@ -109,4 +132,40 @@
     </div>
     @endif
 </div>
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize maps for routes with coordinates
+    @foreach($routes as $route)
+        @if($route->route_coordinates && count($route->route_coordinates) > 0)
+        (function() {
+            var coords = @json($route->route_coordinates);
+            if (coords && coords.length > 0) {
+                var map = L.map('map-{{ $route->id }}', {
+                    zoomControl: false,
+                    attributionControl: false,
+                    dragging: false,
+                    scrollWheelZoom: false
+                });
+
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 18
+                }).addTo(map);
+
+                var polyline = L.polyline(coords, {
+                    color: '#10b981',
+                    weight: 3,
+                    opacity: 0.9
+                }).addTo(map);
+
+                map.fitBounds(polyline.getBounds(), { padding: [10, 10] });
+            }
+        })();
+        @endif
+    @endforeach
+});
+</script>
+@endpush
+
 @endsection

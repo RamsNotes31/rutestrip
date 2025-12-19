@@ -12,6 +12,10 @@
     <!-- Alpine.js for dropdown -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
+    <!-- Leaflet.js for maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
     <script>
         tailwind.config = {
             theme: {
@@ -148,38 +152,40 @@
                         </span>
                     </a>
                     @auth
-                    <a href="{{ route('admin.dashboard') }}"
-                       class="px-4 py-2 rounded-lg text-sm font-medium transition-all
-                              {{ request()->routeIs('admin.*') ? 'bg-purple-100 text-purple-700' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' }}">
-                        <span class="flex items-center space-x-2">
+                    <!-- User Dropdown -->
+                    <div class="relative" x-data="{ open: false }">
+                        <button @click="open = !open" @click.away="open = false"
+                                class="flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-100 transition-all">
+                            <div class="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center">
+                                <span class="text-emerald-700 font-bold text-sm">{{ substr(Auth::user()->name, 0, 1) }}</span>
+                            </div>
+                            <span class="hidden sm:inline">{{ Auth::user()->name }}</span>
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                             </svg>
-                            <span>Admin</span>
-                        </span>
-                    </a>
-                    <form action="{{ route('admin.logout') }}" method="POST" class="inline">
-                        @csrf
-                        <button type="submit" class="px-4 py-2 rounded-lg text-sm font-medium text-red-600 hover:bg-red-50 transition-all">
-                            <span class="flex items-center space-x-2">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-                                </svg>
-                                <span>Logout</span>
-                            </span>
                         </button>
-                    </form>
+                        <div x-show="open" x-transition class="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2 z-50">
+                            <div class="px-4 py-2 border-b border-slate-100">
+                                <p class="text-sm font-medium text-slate-800">{{ Auth::user()->name }}</p>
+                                <p class="text-xs text-slate-500">{{ Auth::user()->email }}</p>
+                            </div>
+                            <a href="{{ route('user.dashboard') }}" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-slate-50">Dashboard</a>
+                            <a href="{{ route('user.favorites') }}" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-slate-50">Rute Favorit</a>
+                            <a href="{{ route('user.profile') }}" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-slate-50">Edit Profil</a>
+                            @if(Auth::user()->isAdmin())
+                            <div class="border-t border-slate-100 my-1"></div>
+                            <a href="{{ route('admin.dashboard') }}" class="flex items-center px-4 py-2 text-sm text-purple-700 hover:bg-purple-50">Admin Panel</a>
+                            @endif
+                            <div class="border-t border-slate-100 my-1"></div>
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50">Logout</button>
+                            </form>
+                        </div>
+                    </div>
                     @else
-                    <a href="{{ route('admin.login') }}"
-                       class="px-4 py-2 rounded-lg text-sm font-medium transition-all
-                              {{ request()->routeIs('admin.login') ? 'bg-purple-100 text-purple-700' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' }}">
-                        <span class="flex items-center space-x-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
-                            </svg>
-                            <span>Admin Login</span>
-                        </span>
-                    </a>
+                    <a href="{{ route('login') }}" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-100">Masuk</a>
+                    <a href="{{ route('register') }}" class="px-4 py-2 bg-emerald-600 text-white rounded-lg text-sm font-medium hover:bg-emerald-700">Daftar</a>
                     @endauth
                     <!-- Upload Dropdown -->
                     <div class="relative ml-2" x-data="{ open: false }">
@@ -293,5 +299,7 @@
             </div>
         </div>
     </footer>
+
+    @stack('scripts')
 </body>
 </html>

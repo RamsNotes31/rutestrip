@@ -11,6 +11,17 @@ class HikingRoute extends Model
     protected $fillable = [
         'name',
         'description',
+        'basecamp_name',
+        'basecamp_address',
+        'basecamp_lat',
+        'basecamp_lng',
+        'entry_fee',
+        'contact_phone',
+        'facilities',
+        'best_season',
+        'tips',
+        'image_path',
+        'route_coordinates',
         'gpx_file_path',
         'distance_km',
         'elevation_gain_m',
@@ -26,6 +37,7 @@ class HikingRoute extends Model
         'naismith_duration_hour' => 'float',
         'average_grade_pct'      => 'float',
         'sbert_embedding'        => 'array',
+        'route_coordinates'      => 'array',
     ];
 
     /**
@@ -72,5 +84,47 @@ class HikingRoute extends Model
         }
 
         return 'Sangat Sulit';
+    }
+
+    /**
+     * Relationships
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Favorite::class);
+    }
+
+    /**
+     * Get average rating
+     */
+    public function getAverageRatingAttribute(): float
+    {
+        return round($this->ratings()->avg('rating') ?? 0, 1);
+    }
+
+    /**
+     * Get total likes count
+     */
+    public function getLikesCountAttribute(): int
+    {
+        return $this->likes()->count();
+    }
+
+    /**
+     * Check if user liked this route
+     */
+    public function isLikedBy($userId): bool
+    {
+        return $this->likes()->where('user_id', $userId)->exists();
     }
 }

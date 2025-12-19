@@ -1,9 +1,13 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
+use App\Models\Favorite;
 use App\Models\HikingRoute;
+use App\Models\Rating;
 use App\Services\PythonProcessorService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class RouteController extends Controller
@@ -70,6 +74,7 @@ class RouteController extends Controller
                 'name'                   => $request->name,
                 'description'            => $request->description,
                 'gpx_file_path'          => $filePath,
+                'route_coordinates'      => $result['route_coordinates'] ?? null,
                 'distance_km'            => $result['distance_km'] ?? null,
                 'elevation_gain_m'       => $result['elevation_gain_m'] ?? null,
                 'naismith_duration_hour' => $result['naismith_duration_hour'] ?? null,
@@ -91,11 +96,47 @@ class RouteController extends Controller
     }
 
     /**
-     * Display the specified hiking route
+     * Display the specified hiking route with similar recommendations
      */
     public function show(HikingRoute $route)
     {
-        return view('routes.show', compact('route'));
+        $similarRoutes = collect([]);
+
+        // Calculate similar routes using cosine similarity
+        if ($route->sbert_embedding) {
+            $routeEmbedding = $route->sbert_embedding;
+
+            $allRoutes = HikingRoute::where('id', '!=', $route->id)
+                ->whereNotNull('sbert_embedding')
+                ->get();
+
+            $similarRoutes = $allRoutes->map(function ($otherRoute) use ($routeEmbedding) {
+                $otherEmbedding = $otherRoute->sbert_embedding;
+
+                // Calculate cosine similarity
+                $dotProduct = 0;
+                $normA      = 0;
+                $normB      = 0;
+
+                for ($i = 0; $i < count($routeEmbedding); $i++) {
+                    $dotProduct += $routeEmbedding[$i] * $otherEmbedding[$i];
+                    $normA += $routeEmbedding[$i] ** 2;
+                    $normB += $otherEmbedding[$i] ** 2;
+                }
+
+                $normA = sqrt($normA);
+                $normB = sqrt($normB);
+
+                $similarity = ($normA * $normB) > 0 ? $dotProduct / ($normA * $normB) : 0;
+
+                $otherRoute->similarity_score = round($similarity * 100, 1);
+                return $otherRoute;
+            })
+                ->sortByDesc('similarity_score')
+                ->take(4);
+        }
+
+        return view('routes.show', compact('route', 'similarRoutes'));
     }
 
     /**
@@ -202,5 +243,101 @@ class RouteController extends Controller
                 ->with('warning', "Berhasil: {$successCount} file, Gagal: {$failedCount} file.")
                 ->with('batch_results', $results);
         }
+    }
+
+    /**
+     * Store a review (comment + rating) for a route
+     */
+    public function storeReview(Request $request, HikingRoute $route)
+    {
+        $validated = $request->validate([
+            'rating'  => 'required|integer|min:1|max:5',
+            'comment' => 'nullable|string|max:1000',
+        ]);
+
+        $userId = Auth::id();
+
+        // Update or create rating
+        Rating::updateOrCreate(
+            ['user_id' => $userId, 'hiking_route_id' => $route->id],
+            ['rating' => $validated['rating']]
+        );
+
+        // Create comment if provided
+        if (! empty($validated['comment'])) {
+            Comment::create([
+                'user_id'         => $userId,
+                'hiking_route_id' => $route->id,
+                'content'         => $validated['comment'],
+            ]);
+        }
+
+        return back()->with('success', 'Review berhasil dikirim!');
+    }
+
+    /**
+     * Toggle like (favorite) for a route
+     */
+    public function toggleLike(HikingRoute $route)
+    {
+        $userId = Auth::id();
+        $like   = Favorite::where('user_id', $userId)
+            ->where('hiking_route_id', $route->id)
+            ->first();
+
+        if ($like) {
+            $like->delete();
+            return back()->with('success', 'Like dihapus');
+        }
+
+        Favorite::create([
+            'user_id'         => $userId,
+            'hiking_route_id' => $route->id,
+        ]);
+
+        return back()->with('success', 'Rute disukai! ❤️');
+    }
+
+    /**
+     * Show similar routes page
+     */
+    public function similarRoutes(HikingRoute $route)
+    {
+        $similarRoutes = collect([]);
+
+        if ($route->sbert_embedding) {
+            $routeEmbedding = $route->sbert_embedding;
+
+            $allRoutes = HikingRoute::where('id', '!=', $route->id)
+                ->whereNotNull('sbert_embedding')
+                ->get();
+
+            $similarRoutes = $allRoutes->map(function ($otherRoute) use ($routeEmbedding) {
+                $otherEmbedding = $otherRoute->sbert_embedding;
+
+                $dotProduct = 0;
+                $normA      = 0;
+                $normB      = 0;
+
+                for ($i = 0; $i < count($routeEmbedding); $i++) {
+                    $dotProduct += $routeEmbedding[$i] * $otherEmbedding[$i];
+                    $normA += $routeEmbedding[$i] ** 2;
+                    $normB += $otherEmbedding[$i] ** 2;
+                }
+
+                $normA      = sqrt($normA);
+                $normB      = sqrt($normB);
+                $similarity = ($normA * $normB) > 0 ? $dotProduct / ($normA * $normB) : 0;
+
+                $otherRoute->similarity_score = round($similarity * 100, 1);
+                $otherRoute->cosine_value     = round($similarity, 4);
+                return $otherRoute;
+            })
+                ->filter(fn($r) => $r->similarity_score > 30) // Min 30% similarity
+                ->sortByDesc('similarity_score')
+                ->take(20);
+        }
+
+        return view('routes.similar', compact('route', 'similarRoutes'));
     }
 }
