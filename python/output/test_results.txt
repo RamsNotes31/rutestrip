@@ -1,0 +1,56 @@
+
+================================================================================
+QUERY 1: "jalur mudah untuk pemula"
+Expected: Jalur dengan kesulitan mudah
+================================================================================
+
+Rank  Nama                                          Jarak    Elevasi    Durasi   Kesulitan    Skor    
+----------------------------------------------------------------------------------------------------
+1     063671 6943Fe37D1Cb6 Agung - Pura Pasar Agu   8.91     0          1.78     mudah        0.4676
+2     063653 6943Fe257Db87 Agung - Besakih          76.05    577        16.17    mudah        0.3908
+3     063970 6943Ff621Eaf0 Ijen - Sempol            114.51   3813       29.26    mudah        0.3879
+4     063689 6943Fe49E4Fab Anak Krakatau            3.85     469        1.55     sulit        0.3542
+5     104952 69449F783982A Mt. Argopuro Baderan T   45.1     3566       14.96    sedang       0.3355
+
+
+================================================================================
+QUERY 2: "trek menantang elevasi tinggi"
+Expected: Jalur sulit dengan elevasi tinggi
+================================================================================
+
+Rank  Nama                                          Jarak    Elevasi    Durasi   Kesulitan    Skor    
+----------------------------------------------------------------------------------------------------
+1     063775 6943Fe9Fd5112 Butak - Tuyomerto        26.22    1899       8.41     sedang       0.7099
+2     104952 69449F783982A Mt. Argopuro Baderan T   45.1     3566       14.96    sedang       0.7069
+3     063593 6943Fde95C187 Argopuro - Bremi Bader   53.83    3243       16.17    sedang       0.7063
+4     063707 6943Fe5B08731 Argopuro - Bremi Bader   53.83    3243       16.17    sedang       0.7063
+5     105124 6944A0245B0D2 Mt. Arjuno Via Tretes    25.48    2355       9.02     sedang       0.7047
+
+
+================================================================================
+QUERY 3: "pendakian singkat 2-3 jam"
+Expected: Jalur dengan durasi pendek
+================================================================================
+
+Rank  Nama                                          Jarak    Elevasi    Durasi   Kesulitan    Skor    
+----------------------------------------------------------------------------------------------------
+1     063689 6943Fe49E4Fab Anak Krakatau            3.85     469        1.55     sulit        0.6858
+2     063671 6943Fe37D1Cb6 Agung - Pura Pasar Agu   8.91     0          1.78     mudah        0.6621
+3     105522 6944A1B26F482 Mt. Lawu Via Tambak      17.42    2117       7.01     sulit        0.6555
+4     063877 6943Ff0589Fa7 Gede-Pangrango Semua J   62.1     8120       25.95    sulit        0.6513
+5     105482 6944A18A1B939 Mt. Lawu Via Cetho       18.52    1871       6.82     sulit        0.6501
+
+
+================================================================================
+QUERY 4: "gunung dengan sabana dan sunrise"
+Expected: Jalur dengan pemandangan
+================================================================================
+
+Rank  Nama                                          Jarak    Elevasi    Durasi   Kesulitan    Skor    
+----------------------------------------------------------------------------------------------------
+1     063671 6943Fe37D1Cb6 Agung - Pura Pasar Agu   8.91     0          1.78     mudah        0.2580
+2     063653 6943Fe257Db87 Agung - Besakih          76.05    577        16.17    mudah        0.2530
+3     063970 6943Ff621Eaf0 Ijen - Sempol            114.51   3813       29.26    mudah        0.2459
+4     104952 69449F783982A Mt. Argopuro Baderan T   45.1     3566       14.96    sedang       0.2156
+5     063593 6943Fde95C187 Argopuro - Bremi Bader   53.83    3243       16.17    sedang       0.2128
+
