@@ -1,0 +1,718 @@
+<html><head><meta charset='utf-8'></head><body>
+<!-- tabel1_dataset -->
+<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; font-family: Times New Roman; font-size: 11pt;'>
+<caption><strong>Tabel. Ringkasan Dataset Jalur Pendakian</strong></caption>
+<thead>
+<tr style='background-color: #f0f0f0;'>
+  <th style='text-align: center; font-weight: bold;'>No</th>
+  <th style='text-align: center; font-weight: bold;'>Nama Jalur</th>
+  <th style='text-align: center; font-weight: bold;'>Gunung</th>
+  <th style='text-align: center; font-weight: bold;'>Provinsi</th>
+  <th style='text-align: center; font-weight: bold;'>Trackpoint</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td style='text-align: left;'>1</td>
+  <td style='text-align: left;'>Argopuro - Bremi Baderan</td>
+  <td style='text-align: left;'>Argopuro</td>
+  <td style='text-align: left;'>Jawa Timur</td>
+  <td style='text-align: left;'>492</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>2</td>
+  <td style='text-align: left;'>Agung - Pura Pasar Agung</td>
+  <td style='text-align: left;'>Agung</td>
+  <td style='text-align: left;'>Bali</td>
+  <td style='text-align: left;'>156</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>3</td>
+  <td style='text-align: left;'>Agung - Besakih</td>
+  <td style='text-align: left;'>Agung</td>
+  <td style='text-align: left;'>Bali</td>
+  <td style='text-align: left;'>1247</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>4</td>
+  <td style='text-align: left;'>Anak Krakatau</td>
+  <td style='text-align: left;'>Krakatau</td>
+  <td style='text-align: left;'>Lampung</td>
+  <td style='text-align: left;'>87</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>5</td>
+  <td style='text-align: left;'>Arjuno - Lawang</td>
+  <td style='text-align: left;'>Arjuno</td>
+  <td style='text-align: left;'>Jawa Timur</td>
+  <td style='text-align: left;'>423</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>...</td>
+  <td style='text-align: left;'>...</td>
+  <td style='text-align: left;'>...</td>
+  <td style='text-align: left;'>...</td>
+  <td style='text-align: left;'>...</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>39</td>
+  <td style='text-align: left;'>Sumbing Via Butuh Kaliangkrik</td>
+  <td style='text-align: left;'>Sumbing</td>
+  <td style='text-align: left;'>Jawa Tengah</td>
+  <td style='text-align: left;'>298</td>
+</tr>
+</tbody>
+</table>
+<br>
+
+<!-- tabel2_atribut_gpx -->
+<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; font-family: Times New Roman; font-size: 11pt;'>
+<caption><strong>Tabel. Atribut Hasil Ekstraksi Data GPX</strong></caption>
+<thead>
+<tr style='background-color: #f0f0f0;'>
+  <th style='text-align: center; font-weight: bold;'>Atribut</th>
+  <th style='text-align: center; font-weight: bold;'>Rumus/Metode</th>
+  <th style='text-align: center; font-weight: bold;'>Satuan</th>
+  <th style='text-align: center; font-weight: bold;'>Rentang Nilai</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td style='text-align: left;'>Jarak Tempuh</td>
+  <td style='text-align: left;'>gpx.length_3d()</td>
+  <td style='text-align: left;'>Kilometer</td>
+  <td style='text-align: left;'>3.85 - 114.51</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Kenaikan Elevasi</td>
+  <td style='text-align: left;'>Σ (ele_i - ele_{i-1})</td>
+  <td style='text-align: left;'>Meter</td>
+  <td style='text-align: left;'>0 - 8.120</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Durasi Naismith</td>
+  <td style='text-align: left;'>(Jarak/5) + (Elevasi/600)</td>
+  <td style='text-align: left;'>Jam</td>
+  <td style='text-align: left;'>0.55 - 29.26</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Grade Rata-rata</td>
+  <td style='text-align: left;'>(Elevasi/(Jarak×1000))×100</td>
+  <td style='text-align: left;'>Persen</td>
+  <td style='text-align: left;'>0.00 - 21.89</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Elevasi Minimum</td>
+  <td style='text-align: left;'>min(elevasi)</td>
+  <td style='text-align: left;'>mdpl</td>
+  <td style='text-align: left;'>773 - 2.200</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Elevasi Maksimum</td>
+  <td style='text-align: left;'>max(elevasi)</td>
+  <td style='text-align: left;'>mdpl</td>
+  <td style='text-align: left;'>2.350 - 3.371</td>
+</tr>
+</tbody>
+</table>
+<br>
+
+<!-- tabel3_konversi_narasi -->
+<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; font-family: Times New Roman; font-size: 11pt;'>
+<caption><strong>Tabel. Contoh Konversi Data Numerik ke Narasi</strong></caption>
+<thead>
+<tr style='background-color: #f0f0f0;'>
+  <th style='text-align: center; font-weight: bold;'>Atribut Numerik</th>
+  <th style='text-align: center; font-weight: bold;'>Nilai</th>
+  <th style='text-align: center; font-weight: bold;'>Narasi Otomatis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td style='text-align: left;'>distance_km</td>
+  <td style='text-align: left;'>11.10</td>
+  <td style='text-align: left;'>Jalur pendakian dengan jarak panjang sekitar 11.10 km</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>elevation_gain_m</td>
+  <td style='text-align: left;'>1.910</td>
+  <td style='text-align: left;'>Total kenaikan elevasi 1910 meter</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>naismith_duration</td>
+  <td style='text-align: left;'>5.40</td>
+  <td style='text-align: left;'>Estimasi waktu tempuh lama selama 5.40 jam</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>average_grade_pct</td>
+  <td style='text-align: left;'>17.21</td>
+  <td style='text-align: left;'>Karakteristik jalur sangat curam dengan grade 17.21%</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>difficulty</td>
+  <td style='text-align: left;'>sulit</td>
+  <td style='text-align: left;'>Tingkat kesulitan: sulit</td>
+</tr>
+</tbody>
+</table>
+<br>
+
+<!-- tabel4_preprocessing -->
+<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; font-family: Times New Roman; font-size: 11pt;'>
+<caption><strong>Tabel. Hasil Setiap Tahap Preprocessing</strong></caption>
+<thead>
+<tr style='background-color: #f0f0f0;'>
+  <th style='text-align: center; font-weight: bold;'>Tahap</th>
+  <th style='text-align: center; font-weight: bold;'>Input</th>
+  <th style='text-align: center; font-weight: bold;'>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td style='text-align: left;'>Original</td>
+  <td style='text-align: left;'>Jalur ini SANGAT curam!!! https://link.com</td>
+  <td style='text-align: left;'>-</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Data Cleaning</td>
+  <td style='text-align: left;'>(dari atas)</td>
+  <td style='text-align: left;'>Jalur ini SANGAT curam Cocok untuk pendaki</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Case Folding</td>
+  <td style='text-align: left;'>(dari atas)</td>
+  <td style='text-align: left;'>jalur ini sangat curam cocok untuk pendaki</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Stopword Removal</td>
+  <td style='text-align: left;'>(dari atas)</td>
+  <td style='text-align: left;'>jalur sangat curam cocok pendaki</td>
+</tr>
+</tbody>
+</table>
+<br>
+
+<!-- tabel5_distribusi_kata -->
+<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; font-family: Times New Roman; font-size: 11pt;'>
+<caption><strong>Tabel. Distribusi Kata pada Preprocessing</strong></caption>
+<thead>
+<tr style='background-color: #f0f0f0;'>
+  <th style='text-align: center; font-weight: bold;'>Kategori</th>
+  <th style='text-align: center; font-weight: bold;'>Jumlah Kata</th>
+  <th style='text-align: center; font-weight: bold;'>Contoh</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td style='text-align: left;'>Stopwords (dihapus)</td>
+  <td style='text-align: left;'>47</td>
+  <td style='text-align: left;'>yang, dan, di, ke, dari, ini, itu</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Kata Negasi (dipertahankan)</td>
+  <td style='text-align: left;'>5</td>
+  <td style='text-align: left;'>tidak, bukan, jangan, belum, tanpa</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Kata Sifat Krusial (dipertahankan)</td>
+  <td style='text-align: left;'>15</td>
+  <td style='text-align: left;'>mudah, sulit, curam, landai, pemula</td>
+</tr>
+</tbody>
+</table>
+<br>
+
+<!-- tabel6_statistik_preprocessing -->
+<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; font-family: Times New Roman; font-size: 11pt;'>
+<caption><strong>Tabel. Statistik Preprocessing pada Dataset</strong></caption>
+<thead>
+<tr style='background-color: #f0f0f0;'>
+  <th style='text-align: center; font-weight: bold;'>Metrik</th>
+  <th style='text-align: center; font-weight: bold;'>Sebelum Preprocessing</th>
+  <th style='text-align: center; font-weight: bold;'>Sesudah Preprocessing</th>
+  <th style='text-align: center; font-weight: bold;'>Perubahan</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td style='text-align: left;'>Total Kata</td>
+  <td style='text-align: left;'>2.847</td>
+  <td style='text-align: left;'>1.923</td>
+  <td style='text-align: left;'>-32.5%</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Kata Unik</td>
+  <td style='text-align: left;'>312</td>
+  <td style='text-align: left;'>198</td>
+  <td style='text-align: left;'>-36.5%</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Rata-rata Panjang Dokumen</td>
+  <td style='text-align: left;'>73 kata</td>
+  <td style='text-align: left;'>49 kata</td>
+  <td style='text-align: left;'>-32.9%</td>
+</tr>
+</tbody>
+</table>
+<br>
+
+<!-- tabel7_spesifikasi_sbert -->
+<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; font-family: Times New Roman; font-size: 11pt;'>
+<caption><strong>Tabel. Spesifikasi Model SBERT</strong></caption>
+<thead>
+<tr style='background-color: #f0f0f0;'>
+  <th style='text-align: center; font-weight: bold;'>Parameter</th>
+  <th style='text-align: center; font-weight: bold;'>Nilai</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td style='text-align: left;'>Nama Model</td>
+  <td style='text-align: left;'>paraphrase-multilingual-MiniLM-L12-v2</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Arsitektur</td>
+  <td style='text-align: left;'>Transformer (12 layers)</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Dimensi Embedding</td>
+  <td style='text-align: left;'>384</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Ukuran Model</td>
+  <td style='text-align: left;'>~420 MB</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Bahasa yang Didukung</td>
+  <td style='text-align: left;'>50+ bahasa (termasuk Indonesia)</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Max Sequence Length</td>
+  <td style='text-align: left;'>128 tokens</td>
+</tr>
+</tbody>
+</table>
+<br>
+
+<!-- tabel8_statistik_embedding -->
+<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; font-family: Times New Roman; font-size: 11pt;'>
+<caption><strong>Tabel. Statistik Embedding yang Dihasilkan</strong></caption>
+<thead>
+<tr style='background-color: #f0f0f0;'>
+  <th style='text-align: center; font-weight: bold;'>Metrik</th>
+  <th style='text-align: center; font-weight: bold;'>Nilai</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td style='text-align: left;'>Jumlah Dokumen</td>
+  <td style='text-align: left;'>39</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Dimensi Vektor</td>
+  <td style='text-align: left;'>384</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Waktu Encoding Total</td>
+  <td style='text-align: left;'>6.66 detik</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Rata-rata Waktu per Dokumen</td>
+  <td style='text-align: left;'>170.77 ms</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Rentang Nilai Vektor</td>
+  <td style='text-align: left;'>-1.0 hingga 1.0</td>
+</tr>
+</tbody>
+</table>
+<br>
+
+<!-- tabel9_query1 -->
+<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; font-family: Times New Roman; font-size: 11pt;'>
+<caption><strong>Tabel. Hasil Rekomendasi untuk Query "jalur mudah untuk pemula"</strong></caption>
+<thead>
+<tr style='background-color: #f0f0f0;'>
+  <th style='text-align: center; font-weight: bold;'>Rank</th>
+  <th style='text-align: center; font-weight: bold;'>Nama Jalur</th>
+  <th style='text-align: center; font-weight: bold;'>Kesulitan</th>
+  <th style='text-align: center; font-weight: bold;'>Grade (%)</th>
+  <th style='text-align: center; font-weight: bold;'>Jarak (km)</th>
+  <th style='text-align: center; font-weight: bold;'>Skor Cosine</th>
+  <th style='text-align: center; font-weight: bold;'>Relevan</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td style='text-align: left;'>1</td>
+  <td style='text-align: left;'>Agung - Pura Pasar Agung</td>
+  <td style='text-align: left;'>mudah</td>
+  <td style='text-align: left;'>0.00</td>
+  <td style='text-align: left;'>8.91</td>
+  <td style='text-align: left;'>0.4150</td>
+  <td style='text-align: left;'>✓</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>2</td>
+  <td style='text-align: left;'>Ijen - Sempol</td>
+  <td style='text-align: left;'>mudah</td>
+  <td style='text-align: left;'>3.33</td>
+  <td style='text-align: left;'>114.51</td>
+  <td style='text-align: left;'>0.4043</td>
+  <td style='text-align: left;'>✓</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>3</td>
+  <td style='text-align: left;'>Merbabu Via Selo</td>
+  <td style='text-align: left;'>sulit</td>
+  <td style='text-align: left;'>17.21</td>
+  <td style='text-align: left;'>11.10</td>
+  <td style='text-align: left;'>0.3904</td>
+  <td style='text-align: left;'>✗</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>4</td>
+  <td style='text-align: left;'>Lawu Via Cemoro Sewu</td>
+  <td style='text-align: left;'>sulit</td>
+  <td style='text-align: left;'>12.97</td>
+  <td style='text-align: left;'>26.88</td>
+  <td style='text-align: left;'>0.3894</td>
+  <td style='text-align: left;'>✗</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>5</td>
+  <td style='text-align: left;'>Merbabu Via Suwanting</td>
+  <td style='text-align: left;'>sulit</td>
+  <td style='text-align: left;'>16.50</td>
+  <td style='text-align: left;'>12.06</td>
+  <td style='text-align: left;'>0.3859</td>
+  <td style='text-align: left;'>✗</td>
+</tr>
+</tbody>
+</table>
+<br>
+
+<!-- tabel10_query2 -->
+<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; font-family: Times New Roman; font-size: 11pt;'>
+<caption><strong>Tabel. Hasil Rekomendasi untuk Query "trek menantang elevasi tinggi"</strong></caption>
+<thead>
+<tr style='background-color: #f0f0f0;'>
+  <th style='text-align: center; font-weight: bold;'>Rank</th>
+  <th style='text-align: center; font-weight: bold;'>Nama Jalur</th>
+  <th style='text-align: center; font-weight: bold;'>Kesulitan</th>
+  <th style='text-align: center; font-weight: bold;'>Elevasi (m)</th>
+  <th style='text-align: center; font-weight: bold;'>Durasi (jam)</th>
+  <th style='text-align: center; font-weight: bold;'>Skor Cosine</th>
+  <th style='text-align: center; font-weight: bold;'>Relevan</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td style='text-align: left;'>1</td>
+  <td style='text-align: left;'>Merbabu Via Thekelan</td>
+  <td style='text-align: left;'>sulit</td>
+  <td style='text-align: left;'>1.911</td>
+  <td style='text-align: left;'>5.94</td>
+  <td style='text-align: left;'>0.7778</td>
+  <td style='text-align: left;'>✓</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>2</td>
+  <td style='text-align: left;'>Semeru</td>
+  <td style='text-align: left;'>sedang</td>
+  <td style='text-align: left;'>3.142</td>
+  <td style='text-align: left;'>13.20</td>
+  <td style='text-align: left;'>0.7773</td>
+  <td style='text-align: left;'>✓</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>3</td>
+  <td style='text-align: left;'>Merbabu Via Selo</td>
+  <td style='text-align: left;'>sulit</td>
+  <td style='text-align: left;'>1.910</td>
+  <td style='text-align: left;'>5.40</td>
+  <td style='text-align: left;'>0.7750</td>
+  <td style='text-align: left;'>✓</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>4</td>
+  <td style='text-align: left;'>Merbabu Via Suwanting</td>
+  <td style='text-align: left;'>sulit</td>
+  <td style='text-align: left;'>1.989</td>
+  <td style='text-align: left;'>5.73</td>
+  <td style='text-align: left;'>0.7744</td>
+  <td style='text-align: left;'>✓</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>5</td>
+  <td style='text-align: left;'>Ciremai - Linggarjati</td>
+  <td style='text-align: left;'>sulit</td>
+  <td style='text-align: left;'>2.148</td>
+  <td style='text-align: left;'>7.52</td>
+  <td style='text-align: left;'>0.7702</td>
+  <td style='text-align: left;'>✓</td>
+</tr>
+</tbody>
+</table>
+<br>
+
+<!-- tabel11_query3 -->
+<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; font-family: Times New Roman; font-size: 11pt;'>
+<caption><strong>Tabel. Hasil Rekomendasi untuk Query "pendakian singkat 2-3 jam"</strong></caption>
+<thead>
+<tr style='background-color: #f0f0f0;'>
+  <th style='text-align: center; font-weight: bold;'>Rank</th>
+  <th style='text-align: center; font-weight: bold;'>Nama Jalur</th>
+  <th style='text-align: center; font-weight: bold;'>Durasi (jam)</th>
+  <th style='text-align: center; font-weight: bold;'>Jarak (km)</th>
+  <th style='text-align: center; font-weight: bold;'>Grade (%)</th>
+  <th style='text-align: center; font-weight: bold;'>Skor Cosine</th>
+  <th style='text-align: center; font-weight: bold;'>Relevan</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td style='text-align: left;'>1</td>
+  <td style='text-align: left;'>Argopuro Baderan</td>
+  <td style='text-align: left;'>14.96</td>
+  <td style='text-align: left;'>45.10</td>
+  <td style='text-align: left;'>7.91</td>
+  <td style='text-align: left;'>0.6891</td>
+  <td style='text-align: left;'>✗</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>2</td>
+  <td style='text-align: left;'>Argopuro - Bremi Baderan</td>
+  <td style='text-align: left;'>16.17</td>
+  <td style='text-align: left;'>53.83</td>
+  <td style='text-align: left;'>6.02</td>
+  <td style='text-align: left;'>0.6850</td>
+  <td style='text-align: left;'>✗</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>3</td>
+  <td style='text-align: left;'>Argopuro - Bremi</td>
+  <td style='text-align: left;'>16.17</td>
+  <td style='text-align: left;'>53.83</td>
+  <td style='text-align: left;'>6.02</td>
+  <td style='text-align: left;'>0.6850</td>
+  <td style='text-align: left;'>✗</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>4</td>
+  <td style='text-align: left;'>Sumbing Via Batursari</td>
+  <td style='text-align: left;'>6.59</td>
+  <td style='text-align: left;'>17.95</td>
+  <td style='text-align: left;'>21.89</td>
+  <td style='text-align: left;'>0.6785</td>
+  <td style='text-align: left;'>✗</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>5</td>
+  <td style='text-align: left;'>Sumbing Via Bowongso</td>
+  <td style='text-align: left;'>6.43</td>
+  <td style='text-align: left;'>17.55</td>
+  <td style='text-align: left;'>21.71</td>
+  <td style='text-align: left;'>0.6778</td>
+  <td style='text-align: left;'>✗</td>
+</tr>
+</tbody>
+</table>
+<br>
+
+<!-- tabel12_query4 -->
+<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; font-family: Times New Roman; font-size: 11pt;'>
+<caption><strong>Tabel. Hasil Rekomendasi untuk Query "gunung dengan sabana dan sunrise"</strong></caption>
+<thead>
+<tr style='background-color: #f0f0f0;'>
+  <th style='text-align: center; font-weight: bold;'>Rank</th>
+  <th style='text-align: center; font-weight: bold;'>Nama Jalur</th>
+  <th style='text-align: center; font-weight: bold;'>Grade (%)</th>
+  <th style='text-align: center; font-weight: bold;'>Fitur Jalur</th>
+  <th style='text-align: center; font-weight: bold;'>Kesulitan</th>
+  <th style='text-align: center; font-weight: bold;'>Skor Cosine</th>
+  <th style='text-align: center; font-weight: bold;'>Relevan</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td style='text-align: left;'>1</td>
+  <td style='text-align: left;'>Lawu Via Tambak</td>
+  <td style='text-align: left;'>12.15</td>
+  <td style='text-align: left;'>Sunrise spektakuler</td>
+  <td style='text-align: left;'>sulit</td>
+  <td style='text-align: left;'>0.5430</td>
+  <td style='text-align: left;'>✓</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>2</td>
+  <td style='text-align: left;'>Lawu Via Cetho</td>
+  <td style='text-align: left;'>10.10</td>
+  <td style='text-align: left;'>Sunrise sunset</td>
+  <td style='text-align: left;'>sulit</td>
+  <td style='text-align: left;'>0.5345</td>
+  <td style='text-align: left;'>✓</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>3</td>
+  <td style='text-align: left;'>Lawu Via Cemoro Sewu</td>
+  <td style='text-align: left;'>4.09</td>
+  <td style='text-align: left;'>Petilasan, sunrise</td>
+  <td style='text-align: left;'>sulit</td>
+  <td style='text-align: left;'>0.5309</td>
+  <td style='text-align: left;'>✓</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>4</td>
+  <td style='text-align: left;'>Ijen - Sempol</td>
+  <td style='text-align: left;'>3.33</td>
+  <td style='text-align: left;'>Kawah, api biru</td>
+  <td style='text-align: left;'>mudah</td>
+  <td style='text-align: left;'>0.4847</td>
+  <td style='text-align: left;'>✓</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>5</td>
+  <td style='text-align: left;'>Merbabu Via Selo</td>
+  <td style='text-align: left;'>17.21</td>
+  <td style='text-align: left;'>Sabana luas, Merapi</td>
+  <td style='text-align: left;'>sulit</td>
+  <td style='text-align: left;'>0.4774</td>
+  <td style='text-align: left;'>✓</td>
+</tr>
+</tbody>
+</table>
+<br>
+
+<!-- tabel13_precision -->
+<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; font-family: Times New Roman; font-size: 11pt;'>
+<caption><strong>Tabel. Hasil Evaluasi Precision@K</strong></caption>
+<thead>
+<tr style='background-color: #f0f0f0;'>
+  <th style='text-align: center; font-weight: bold;'>Skenario</th>
+  <th style='text-align: center; font-weight: bold;'>Query</th>
+  <th style='text-align: center; font-weight: bold;'>P@3</th>
+  <th style='text-align: center; font-weight: bold;'>P@5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td style='text-align: left;'>1</td>
+  <td style='text-align: left;'>jalur mudah untuk pemula</td>
+  <td style='text-align: left;'>0.67</td>
+  <td style='text-align: left;'>0.40</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>2</td>
+  <td style='text-align: left;'>trek menantang elevasi tinggi</td>
+  <td style='text-align: left;'>1.00</td>
+  <td style='text-align: left;'>1.00</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>3</td>
+  <td style='text-align: left;'>pendakian singkat 2-3 jam</td>
+  <td style='text-align: left;'>0.00</td>
+  <td style='text-align: left;'>0.00</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>4</td>
+  <td style='text-align: left;'>gunung dengan sabana dan sunrise</td>
+  <td style='text-align: left;'>1.00</td>
+  <td style='text-align: left;'>1.00</td>
+</tr>
+<tr>
+  <td style='text-align: left;'></td>
+  <td style='text-align: left;'>Rata-rata</td>
+  <td style='text-align: left;'>0.67</td>
+  <td style='text-align: left;'>0.60</td>
+</tr>
+</tbody>
+</table>
+<br>
+
+<!-- tabel14_perbandingan -->
+<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; font-family: Times New Roman; font-size: 11pt;'>
+<caption><strong>Tabel. Perbandingan Precision@5: SBERT vs TF-IDF</strong></caption>
+<thead>
+<tr style='background-color: #f0f0f0;'>
+  <th style='text-align: center; font-weight: bold;'>Skenario</th>
+  <th style='text-align: center; font-weight: bold;'>SBERT</th>
+  <th style='text-align: center; font-weight: bold;'>TF-IDF</th>
+  <th style='text-align: center; font-weight: bold;'>Selisih</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td style='text-align: left;'>1</td>
+  <td style='text-align: left;'>0.40</td>
+  <td style='text-align: left;'>0.20</td>
+  <td style='text-align: left;'>+0.20</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>2</td>
+  <td style='text-align: left;'>1.00</td>
+  <td style='text-align: left;'>0.60</td>
+  <td style='text-align: left;'>+0.40</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>3</td>
+  <td style='text-align: left;'>0.00</td>
+  <td style='text-align: left;'>0.00</td>
+  <td style='text-align: left;'>0.00</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>4</td>
+  <td style='text-align: left;'>1.00</td>
+  <td style='text-align: left;'>0.20</td>
+  <td style='text-align: left;'>+0.80</td>
+</tr>
+<tr>
+  <td style='text-align: left;'></td>
+  <td style='text-align: left;'>Rata-rata: 0.60</td>
+  <td style='text-align: left;'>0.25</td>
+  <td style='text-align: left;'>+0.35 (+140%)</td>
+</tr>
+</tbody>
+</table>
+<br>
+
+<!-- tabel17_performa -->
+<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; font-family: Times New Roman; font-size: 11pt;'>
+<caption><strong>Tabel. Hasil Pengukuran Performa Sistem</strong></caption>
+<thead>
+<tr style='background-color: #f0f0f0;'>
+  <th style='text-align: center; font-weight: bold;'>Metrik</th>
+  <th style='text-align: center; font-weight: bold;'>Nilai</th>
+  <th style='text-align: center; font-weight: bold;'>Benchmark</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td style='text-align: left;'>Response Time (Pencarian)</td>
+  <td style='text-align: left;'>127-150 ms</td>
+  <td style='text-align: left;'>< 500 ms ✓</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Response Time (Detail)</td>
+  <td style='text-align: left;'>85-120 ms</td>
+  <td style='text-align: left;'>< 300 ms ✓</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Memory Usage (Peak)</td>
+  <td style='text-align: left;'>256 MB</td>
+  <td style='text-align: left;'>< 512 MB ✓</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>SBERT Model Loading</td>
+  <td style='text-align: left;'>9.24 detik</td>
+  <td style='text-align: left;'>One-time</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Throughput</td>
+  <td style='text-align: left;'>50 req/menit</td>
+  <td style='text-align: left;'>Acceptable</td>
+</tr>
+</tbody>
+</table>
+<br>
+</body></html>

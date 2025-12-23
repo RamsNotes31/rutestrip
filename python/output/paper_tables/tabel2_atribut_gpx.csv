@@ -1,0 +1,7 @@
+Atribut,Rumus/Metode,Satuan,Rentang Nilai
+Jarak Tempuh,gpx.length_3d(),Kilometer,3.85 - 114.51
+Kenaikan Elevasi,Σ (ele_i - ele_{i-1}),Meter,0 - 8.120
+Durasi Naismith,(Jarak/5) + (Elevasi/600),Jam,0.55 - 29.26
+Grade Rata-rata,(Elevasi/(Jarak×1000))×100,Persen,0.00 - 21.89
+Elevasi Minimum,min(elevasi),mdpl,773 - 2.200
+Elevasi Maksimum,max(elevasi),mdpl,2.350 - 3.371

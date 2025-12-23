@@ -1,0 +1,4 @@
+Kategori,Jumlah Kata,Contoh
+Stopwords (dihapus),47,"yang, dan, di, ke, dari, ini, itu"
+Kata Negasi (dipertahankan),5,"tidak, bukan, jangan, belum, tanpa"
+Kata Sifat Krusial (dipertahankan),15,"mudah, sulit, curam, landai, pemula"

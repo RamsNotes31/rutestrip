@@ -19,7 +19,7 @@
 
     <!-- Upload Form -->
     <div class="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden">
-        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 p-6">
+        <div class="bg-gradient-to-r from-emerald-600 to-teal-600 p-6">
             <div class="flex items-center space-x-3">
                 <div class="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -28,7 +28,7 @@
                 </div>
                 <div>
                     <h2 class="text-xl font-bold text-white">Batch Upload</h2>
-                    <p class="text-indigo-100 text-sm">Pilih beberapa file GPX sekaligus</p>
+                    <p class="text-emerald-100 text-sm">Pilih beberapa file GPX sekaligus</p>
                 </div>
             </div>
         </div>
@@ -52,16 +52,16 @@
                            required>
 
                     <label for="gpx_files"
-                           class="flex flex-col items-center justify-center w-full h-56 border-2 border-dashed border-slate-300 rounded-2xl cursor-pointer hover:border-indigo-400 hover:bg-indigo-50/50 transition-all @error('gpx_files') border-red-500 @enderror @error('gpx_files.*') border-red-500 @enderror"
+                           class="flex flex-col items-center justify-center w-full h-56 border-2 border-dashed border-slate-300 rounded-2xl cursor-pointer hover:border-emerald-400 hover:bg-emerald-50/50 transition-all @error('gpx_files') border-red-500 @enderror @error('gpx_files.*') border-red-500 @enderror"
                            id="dropzone">
                         <div class="flex flex-col items-center justify-center pt-5 pb-6" id="dropzone-content">
-                            <div class="w-20 h-20 bg-indigo-100 rounded-2xl flex items-center justify-center mb-4">
-                                <svg class="w-10 h-10 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="w-20 h-20 bg-emerald-100 rounded-2xl flex items-center justify-center mb-4">
+                                <svg class="w-10 h-10 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
                                 </svg>
                             </div>
                             <p class="mb-2 text-sm text-slate-600">
-                                <span class="font-semibold text-indigo-600">Klik untuk pilih file</span> atau drag & drop
+                                <span class="font-semibold text-emerald-600">Klik untuk pilih file</span> atau drag & drop
                             </p>
                             <p class="text-xs text-slate-500">Pilih beberapa file GPX atau XML (Maks. 50 file, 10MB per file)</p>
                         </div>
@@ -83,7 +83,7 @@
                     <!-- Files will be listed here -->
                 </div>
                 <p class="mt-2 text-sm text-slate-600">
-                    <span id="file-count" class="font-semibold text-indigo-600">0</span> file dipilih
+                    <span id="file-count" class="font-semibold text-emerald-600">0</span> file dipilih
                 </p>
             </div>
 
@@ -111,14 +111,14 @@
                     <span class="text-sm text-slate-600" id="progress-text">0%</span>
                 </div>
                 <div class="w-full bg-slate-200 rounded-full h-3 overflow-hidden">
-                    <div class="bg-gradient-to-r from-indigo-500 to-purple-500 h-3 rounded-full transition-all duration-300" id="progress-bar" style="width: 0%"></div>
+                    <div class="bg-gradient-to-r from-emerald-500 to-teal-500 h-3 rounded-full transition-all duration-300" id="progress-bar" style="width: 0%"></div>
                 </div>
             </div>
 
             <!-- Submit Button -->
             <button type="submit"
                     id="submit-btn"
-                    class="w-full py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center space-x-2 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100">
+                    class="w-full py-4 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center space-x-2 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
                 </svg>
@@ -178,7 +178,7 @@
                 item.className = 'flex items-center justify-between py-2 px-3 bg-white rounded-lg mb-2 last:mb-0';
                 item.innerHTML = `
                     <div class="flex items-center space-x-3">
-                        <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                         </svg>
                         <span class="text-sm text-slate-700 truncate max-w-xs">${file.name}</span>
@@ -215,13 +215,13 @@
 
     ['dragenter', 'dragover'].forEach(eventName => {
         dropzone.addEventListener(eventName, () => {
-            dropzone.classList.add('border-indigo-400', 'bg-indigo-50');
+            dropzone.classList.add('border-emerald-400', 'bg-emerald-50');
         }, false);
     });
 
     ['dragleave', 'drop'].forEach(eventName => {
         dropzone.addEventListener(eventName, () => {
-            dropzone.classList.remove('border-indigo-400', 'bg-indigo-50');
+            dropzone.classList.remove('border-emerald-400', 'bg-emerald-50');
         }, false);
     });
 

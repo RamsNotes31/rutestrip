@@ -1,0 +1,7 @@
+Parameter,Nilai
+Nama Model,paraphrase-multilingual-MiniLM-L12-v2
+Arsitektur,Transformer (12 layers)
+Dimensi Embedding,384
+Ukuran Model,~420 MB
+Bahasa yang Didukung,50+ bahasa (termasuk Indonesia)
+Max Sequence Length,128 tokens
