@@ -676,6 +676,130 @@
 </table>
 <br>
 
+<!-- tabel15_teknologi -->
+<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; font-family: Times New Roman; font-size: 11pt;'>
+<caption><strong>Tabel. Komponen Teknologi Implementasi</strong></caption>
+<thead>
+<tr style='background-color: #f0f0f0;'>
+  <th style='text-align: center; font-weight: bold;'>Layer</th>
+  <th style='text-align: center; font-weight: bold;'>Teknologi</th>
+  <th style='text-align: center; font-weight: bold;'>Versi</th>
+  <th style='text-align: center; font-weight: bold;'>Fungsi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td style='text-align: left;'>Backend</td>
+  <td style='text-align: left;'>Laravel</td>
+  <td style='text-align: left;'>10.x</td>
+  <td style='text-align: left;'>API, routing, database management</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>ML Engine</td>
+  <td style='text-align: left;'>Python</td>
+  <td style='text-align: left;'>3.10+</td>
+  <td style='text-align: left;'>GPX processing, SBERT, similarity</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>NLP Model</td>
+  <td style='text-align: left;'>Sentence-Transformers</td>
+  <td style='text-align: left;'>2.2+</td>
+  <td style='text-align: left;'>Encoding teks ke vektor 384 dimensi</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Database</td>
+  <td style='text-align: left;'>MySQL/SQLite</td>
+  <td style='text-align: left;'>8.0/3.x</td>
+  <td style='text-align: left;'>Penyimpanan data rute dan embedding</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Frontend</td>
+  <td style='text-align: left;'>Blade + JavaScript</td>
+  <td style='text-align: left;'>-</td>
+  <td style='text-align: left;'>Antarmuka pengguna responsif</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>GPX Parser</td>
+  <td style='text-align: left;'>gpxpy</td>
+  <td style='text-align: left;'>1.5+</td>
+  <td style='text-align: left;'>Parsing dan smoothing data GPX</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Similarity</td>
+  <td style='text-align: left;'>scikit-learn</td>
+  <td style='text-align: left;'>1.0+</td>
+  <td style='text-align: left;'>Cosine similarity calculation</td>
+</tr>
+</tbody>
+</table>
+<br>
+
+<!-- tabel16_pengujian -->
+<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; font-family: Times New Roman; font-size: 11pt;'>
+<caption><strong>Tabel. Skenario Pengujian Sistem Web</strong></caption>
+<thead>
+<tr style='background-color: #f0f0f0;'>
+  <th style='text-align: center; font-weight: bold;'>No</th>
+  <th style='text-align: center; font-weight: bold;'>Skenario Pengujian</th>
+  <th style='text-align: center; font-weight: bold;'>Input</th>
+  <th style='text-align: center; font-weight: bold;'>Expected Output</th>
+  <th style='text-align: center; font-weight: bold;'>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td style='text-align: left;'>1</td>
+  <td style='text-align: left;'>Upload GPX Tunggal</td>
+  <td style='text-align: left;'>1 file GPX + deskripsi</td>
+  <td style='text-align: left;'>Jalur tersimpan dengan embedding</td>
+  <td style='text-align: left;'>✓ Pass</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>2</td>
+  <td style='text-align: left;'>Batch Upload GPX</td>
+  <td style='text-align: left;'>10 file GPX sekaligus</td>
+  <td style='text-align: left;'>10 jalur terproses dengan embedding</td>
+  <td style='text-align: left;'>✓ Pass</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>3</td>
+  <td style='text-align: left;'>Pencarian 'pemula'</td>
+  <td style='text-align: left;'>Query: jalur mudah untuk pemula</td>
+  <td style='text-align: left;'>Top-5 rekomendasi dengan skor</td>
+  <td style='text-align: left;'>✓ Pass</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>4</td>
+  <td style='text-align: left;'>Pencarian 'sunrise'</td>
+  <td style='text-align: left;'>Query: gunung dengan sabana dan sunrise</td>
+  <td style='text-align: left;'>Jalur Lawu/Merbabu di top hasil</td>
+  <td style='text-align: left;'>✓ Pass</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>5</td>
+  <td style='text-align: left;'>Detail Jalur</td>
+  <td style='text-align: left;'>Klik jalur dari hasil pencarian</td>
+  <td style='text-align: left;'>Halaman detail dengan peta + stats</td>
+  <td style='text-align: left;'>✓ Pass</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>6</td>
+  <td style='text-align: left;'>Rekomendasi Serupa</td>
+  <td style='text-align: left;'>Lihat halaman detail jalur</td>
+  <td style='text-align: left;'>5 jalur serupa ditampilkan</td>
+  <td style='text-align: left;'>✓ Pass</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>7</td>
+  <td style='text-align: left;'>Performa Pencarian</td>
+  <td style='text-align: left;'>Query dengan 39 jalur di database</td>
+  <td style='text-align: left;'>Response time < 500ms</td>
+  <td style='text-align: left;'>✓ Pass</td>
+</tr>
+</tbody>
+</table>
+<br>
+
 <!-- tabel17_performa -->
 <table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; font-family: Times New Roman; font-size: 11pt;'>
 <caption><strong>Tabel. Hasil Pengukuran Performa Sistem</strong></caption>
@@ -704,13 +828,87 @@
 </tr>
 <tr>
   <td style='text-align: left;'>SBERT Model Loading</td>
-  <td style='text-align: left;'>9.24 detik</td>
+  <td style='text-align: left;'>6.88 detik</td>
   <td style='text-align: left;'>One-time</td>
 </tr>
 <tr>
   <td style='text-align: left;'>Throughput</td>
   <td style='text-align: left;'>50 req/menit</td>
   <td style='text-align: left;'>Acceptable</td>
+</tr>
+</tbody>
+</table>
+<br>
+
+<!-- tabel18_perbandingan_penelitian -->
+<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; font-family: Times New Roman; font-size: 11pt;'>
+<caption><strong>Tabel. Perbandingan dengan Penelitian Terdahulu</strong></caption>
+<thead>
+<tr style='background-color: #f0f0f0;'>
+  <th style='text-align: center; font-weight: bold;'>Aspek</th>
+  <th style='text-align: center; font-weight: bold;'>Penelitian Ini</th>
+  <th style='text-align: center; font-weight: bold;'>[4]</th>
+  <th style='text-align: center; font-weight: bold;'>[5]</th>
+  <th style='text-align: center; font-weight: bold;'>[6]</th>
+  <th style='text-align: center; font-weight: bold;'>[8]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td style='text-align: left;'>Domain</td>
+  <td style='text-align: left;'>Jalur Pendakian</td>
+  <td style='text-align: left;'>Wisata Umum</td>
+  <td style='text-align: left;'>Wisata Alam</td>
+  <td style='text-align: left;'>Wisata</td>
+  <td style='text-align: left;'>Berita</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Metode Teks</td>
+  <td style='text-align: left;'>SBERT</td>
+  <td style='text-align: left;'>-</td>
+  <td style='text-align: left;'>-</td>
+  <td style='text-align: left;'>-</td>
+  <td style='text-align: left;'>TF-IDF</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Data Spasial</td>
+  <td style='text-align: left;'>GPX</td>
+  <td style='text-align: left;'>Koordinat</td>
+  <td style='text-align: left;'>Koordinat</td>
+  <td style='text-align: left;'>-</td>
+  <td style='text-align: left;'>-</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Pemahaman Semantik</td>
+  <td style='text-align: left;'>✓</td>
+  <td style='text-align: left;'>✗</td>
+  <td style='text-align: left;'>✗</td>
+  <td style='text-align: left;'>✗</td>
+  <td style='text-align: left;'>Terbatas</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Data Fusion</td>
+  <td style='text-align: left;'>Numerik + Narasi</td>
+  <td style='text-align: left;'>-</td>
+  <td style='text-align: left;'>-</td>
+  <td style='text-align: left;'>-</td>
+  <td style='text-align: left;'>-</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Bahasa Indonesia</td>
+  <td style='text-align: left;'>✓ (Multilingual)</td>
+  <td style='text-align: left;'>✓</td>
+  <td style='text-align: left;'>✓</td>
+  <td style='text-align: left;'>✓</td>
+  <td style='text-align: left;'>✓</td>
+</tr>
+<tr>
+  <td style='text-align: left;'>Precision@5</td>
+  <td style='text-align: left;'>0.60</td>
+  <td style='text-align: left;'>N/A</td>
+  <td style='text-align: left;'>N/A</td>
+  <td style='text-align: left;'>N/A</td>
+  <td style='text-align: left;'>0.25</td>
 </tr>
 </tbody>
 </table>

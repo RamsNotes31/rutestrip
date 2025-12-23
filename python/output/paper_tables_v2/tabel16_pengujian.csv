@@ -1,0 +1,8 @@
+No,Skenario Pengujian,Input,Expected Output,Status
+1,Upload GPX Tunggal,1 file GPX + deskripsi,Jalur tersimpan dengan embedding,✓ Pass
+2,Batch Upload GPX,10 file GPX sekaligus,10 jalur terproses dengan embedding,✓ Pass
+3,Pencarian 'pemula',Query: jalur mudah untuk pemula,Top-5 rekomendasi dengan skor,✓ Pass
+4,Pencarian 'sunrise',Query: gunung dengan sabana dan sunrise,Jalur Lawu/Merbabu di top hasil,✓ Pass
+5,Detail Jalur,Klik jalur dari hasil pencarian,Halaman detail dengan peta + stats,✓ Pass
+6,Rekomendasi Serupa,Lihat halaman detail jalur,5 jalur serupa ditampilkan,✓ Pass
+7,Performa Pencarian,Query dengan 39 jalur di database,Response time < 500ms,✓ Pass

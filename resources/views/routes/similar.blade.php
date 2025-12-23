@@ -54,6 +54,13 @@
                 <!-- Route Name -->
                 <h3 class="font-bold text-lg text-slate-800 mb-2">{{ $similar->name }}</h3>
 
+                <!-- Description -->
+                @if($similar->narrative_text || $similar->manual_description)
+                <p class="text-sm text-slate-600 mb-3 line-clamp-2">
+                    {{ Str::limit($similar->manual_description ?: $similar->narrative_text, 100) }}
+                </p>
+                @endif
+
                 <!-- Stats -->
                 <div class="grid grid-cols-3 gap-2 mb-4 text-center">
                     <div class="bg-slate-50 p-2 rounded-lg">

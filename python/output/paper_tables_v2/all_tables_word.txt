@@ -109,10 +109,40 @@ Skenario	SBERT	TF-IDF	Selisih
 4	1.00	0.20	+0.80
 	Rata-rata: 0.60	0.25	+0.35 (+140%)
 
+=== Komponen Teknologi Implementasi ===
+Layer	Teknologi	Versi	Fungsi
+Backend	Laravel	10.x	API, routing, database management
+ML Engine	Python	3.10+	GPX processing, SBERT, similarity
+NLP Model	Sentence-Transformers	2.2+	Encoding teks ke vektor 384 dimensi
+Database	MySQL/SQLite	8.0/3.x	Penyimpanan data rute dan embedding
+Frontend	Blade + JavaScript	-	Antarmuka pengguna responsif
+GPX Parser	gpxpy	1.5+	Parsing dan smoothing data GPX
+Similarity	scikit-learn	1.0+	Cosine similarity calculation
+
+=== Skenario Pengujian Sistem Web ===
+No	Skenario Pengujian	Input	Expected Output	Status
+1	Upload GPX Tunggal	1 file GPX + deskripsi	Jalur tersimpan dengan embedding	✓ Pass
+2	Batch Upload GPX	10 file GPX sekaligus	10 jalur terproses dengan embedding	✓ Pass
+3	Pencarian 'pemula'	Query: jalur mudah untuk pemula	Top-5 rekomendasi dengan skor	✓ Pass
+4	Pencarian 'sunrise'	Query: gunung dengan sabana dan sunrise	Jalur Lawu/Merbabu di top hasil	✓ Pass
+5	Detail Jalur	Klik jalur dari hasil pencarian	Halaman detail dengan peta + stats	✓ Pass
+6	Rekomendasi Serupa	Lihat halaman detail jalur	5 jalur serupa ditampilkan	✓ Pass
+7	Performa Pencarian	Query dengan 39 jalur di database	Response time < 500ms	✓ Pass
+
 === Hasil Pengukuran Performa Sistem ===
 Metrik	Nilai	Benchmark
 Response Time (Pencarian)	127-150 ms	< 500 ms ✓
 Response Time (Detail)	85-120 ms	< 300 ms ✓
 Memory Usage (Peak)	256 MB	< 512 MB ✓
-SBERT Model Loading	9.24 detik	One-time
+SBERT Model Loading	6.88 detik	One-time
 Throughput	50 req/menit	Acceptable
+
+=== Perbandingan dengan Penelitian Terdahulu ===
+Aspek	Penelitian Ini	[4]	[5]	[6]	[8]
+Domain	Jalur Pendakian	Wisata Umum	Wisata Alam	Wisata	Berita
+Metode Teks	SBERT	-	-	-	TF-IDF
+Data Spasial	GPX	Koordinat	Koordinat	-	-
+Pemahaman Semantik	✓	✗	✗	✗	Terbatas
+Data Fusion	Numerik + Narasi	-	-	-	-
+Bahasa Indonesia	✓ (Multilingual)	✓	✓	✓	✓
+Precision@5	0.60	N/A	N/A	N/A	0.25

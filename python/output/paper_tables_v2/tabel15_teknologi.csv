@@ -1,0 +1,8 @@
+Layer,Teknologi,Versi,Fungsi
+Backend,Laravel,10.x,"API, routing, database management"
+ML Engine,Python,3.10+,"GPX processing, SBERT, similarity"
+NLP Model,Sentence-Transformers,2.2+,Encoding teks ke vektor 384 dimensi
+Database,MySQL/SQLite,8.0/3.x,Penyimpanan data rute dan embedding
+Frontend,Blade + JavaScript,-,Antarmuka pengguna responsif
+GPX Parser,gpxpy,1.5+,Parsing dan smoothing data GPX
+Similarity,scikit-learn,1.0+,Cosine similarity calculation

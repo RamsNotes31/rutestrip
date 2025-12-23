@@ -249,6 +249,46 @@ Rentang Nilai Vektor & -1.0 hingga 1.0 \\
 \end{tabular}
 \end{table}
 
+% tabel15_teknologi
+\begin{table}[htbp]
+\centering
+\caption{Komponen Teknologi Implementasi}
+\label{tab:tabel15_teknologi}
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Layer} & \textbf{Teknologi} & \textbf{Versi} & \textbf{Fungsi} \\
+\hline
+Backend & Laravel & 10.x & API, routing, database management \\
+ML Engine & Python & 3.10+ & GPX processing, SBERT, similarity \\
+NLP Model & Sentence-Transformers & 2.2+ & Encoding teks ke vektor 384 dimensi \\
+Database & MySQL/SQLite & 8.0/3.x & Penyimpanan data rute dan embedding \\
+Frontend & Blade + JavaScript & - & Antarmuka pengguna responsif \\
+GPX Parser & gpxpy & 1.5+ & Parsing dan smoothing data GPX \\
+Similarity & scikit-learn & 1.0+ & Cosine similarity calculation \\
+\hline
+\end{tabular}
+\end{table}
+
+% tabel16_pengujian
+\begin{table}[htbp]
+\centering
+\caption{Skenario Pengujian Sistem Web}
+\label{tab:tabel16_pengujian}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{No} & \textbf{Skenario Pengujian} & \textbf{Input} & \textbf{Expected Output} & \textbf{Status} \\
+\hline
+1 & Upload GPX Tunggal & 1 file GPX + deskripsi & Jalur tersimpan dengan embedding & ✓ Pass \\
+2 & Batch Upload GPX & 10 file GPX sekaligus & 10 jalur terproses dengan embedding & ✓ Pass \\
+3 & Pencarian 'pemula' & Query: jalur mudah untuk pemula & Top-5 rekomendasi dengan skor & ✓ Pass \\
+4 & Pencarian 'sunrise' & Query: gunung dengan sabana dan sunrise & Jalur Lawu/Merbabu di top hasil & ✓ Pass \\
+5 & Detail Jalur & Klik jalur dari hasil pencarian & Halaman detail dengan peta + stats & ✓ Pass \\
+6 & Rekomendasi Serupa & Lihat halaman detail jalur & 5 jalur serupa ditampilkan & ✓ Pass \\
+7 & Performa Pencarian & Query dengan 39 jalur di database & Response time < 500ms & ✓ Pass \\
+\hline
+\end{tabular}
+\end{table}
+
 % tabel17_performa
 \begin{table}[htbp]
 \centering
@@ -261,8 +301,28 @@ Rentang Nilai Vektor & -1.0 hingga 1.0 \\
 Response Time (Pencarian) & 127-150 ms & < 500 ms ✓ \\
 Response Time (Detail) & 85-120 ms & < 300 ms ✓ \\
 Memory Usage (Peak) & 256 MB & < 512 MB ✓ \\
-SBERT Model Loading & 9.24 detik & One-time \\
+SBERT Model Loading & 6.88 detik & One-time \\
 Throughput & 50 req/menit & Acceptable \\
+\hline
+\end{tabular}
+\end{table}
+
+% tabel18_perbandingan_penelitian
+\begin{table}[htbp]
+\centering
+\caption{Perbandingan dengan Penelitian Terdahulu}
+\label{tab:tabel18_perbandingan_penelitian}
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\textbf{Aspek} & \textbf{Penelitian Ini} & \textbf{[4]} & \textbf{[5]} & \textbf{[6]} & \textbf{[8]} \\
+\hline
+Domain & Jalur Pendakian & Wisata Umum & Wisata Alam & Wisata & Berita \\
+Metode Teks & SBERT & - & - & - & TF-IDF \\
+Data Spasial & GPX & Koordinat & Koordinat & - & - \\
+Pemahaman Semantik & ✓ & ✗ & ✗ & ✗ & Terbatas \\
+Data Fusion & Numerik + Narasi & - & - & - & - \\
+Bahasa Indonesia & ✓ (Multilingual) & ✓ & ✓ & ✓ & ✓ \\
+Precision@5 & 0.60 & N/A & N/A & N/A & 0.25 \\
 \hline
 \end{tabular}
 \end{table}

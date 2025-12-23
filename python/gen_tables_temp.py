@@ -12,7 +12,7 @@ import os
 if sys.platform == 'win32':
     sys.stdout.reconfigure(encoding='utf-8')
 
-OUTPUT_DIR = "output/paper_tables_v2"
+OUTPUT_DIR = "output/paper_tables"
 
 # Buat folder output
 os.makedirs(OUTPUT_DIR, exist_ok=True)

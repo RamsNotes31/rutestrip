@@ -1,0 +1,8 @@
+Aspek,Penelitian Ini,[4],[5],[6],[8]
+Domain,Jalur Pendakian,Wisata Umum,Wisata Alam,Wisata,Berita
+Metode Teks,SBERT,-,-,-,TF-IDF
+Data Spasial,GPX,Koordinat,Koordinat,-,-
+Pemahaman Semantik,✓,✗,✗,✗,Terbatas
+Data Fusion,Numerik + Narasi,-,-,-,-
+Bahasa Indonesia,✓ (Multilingual),✓,✓,✓,✓
+Precision@5,0.60,N/A,N/A,N/A,0.25

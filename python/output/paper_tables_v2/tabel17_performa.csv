@@ -2,5 +2,5 @@ Metrik,Nilai,Benchmark
 Response Time (Pencarian),127-150 ms,< 500 ms ✓
 Response Time (Detail),85-120 ms,< 300 ms ✓
 Memory Usage (Peak),256 MB,< 512 MB ✓
-SBERT Model Loading,9.24 detik,One-time
+SBERT Model Loading,6.88 detik,One-time
 Throughput,50 req/menit,Acceptable
