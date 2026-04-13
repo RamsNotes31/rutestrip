@@ -13,15 +13,10 @@ class PythonProcessorService
 
     public function __construct()
     {
-        // Try to find Python 3.11 executable
-        $pythonPath = $this->findPython311();
-
-        if ($pythonPath) {
-            $this->pythonCommand = [$pythonPath];
-        } else {
-            // Use full path to py launcher (more reliable from PHP)
-            $this->pythonCommand = ['C:\\Windows\\py.exe', '-3.11'];
-        }
+        // Use python path based on env or fallback to 'python'
+        $pythonExecutable = env('PYTHON_PATH', 'python');
+        
+        $this->pythonCommand = [$pythonExecutable];
 
         $this->scriptPath = base_path('python/processor.py');
 
@@ -30,6 +25,8 @@ class PythonProcessorService
             'PATH'             => getenv('PATH'),
             'PYTHONIOENCODING' => 'utf-8',
             'USERPROFILE'      => getenv('USERPROFILE'),
+            'USERNAME'         => getenv('USERNAME') ?: 'default',
+            'USER'             => getenv('USERNAME') ?: 'default',
             'LOCALAPPDATA'     => getenv('LOCALAPPDATA'),
             'APPDATA'          => getenv('APPDATA'),
             'HOME'             => getenv('USERPROFILE'),
@@ -38,42 +35,6 @@ class PythonProcessorService
             'TEMP'             => getenv('TEMP') ?: sys_get_temp_dir(),
             'TMP'              => getenv('TMP') ?: sys_get_temp_dir(),
         ];
-    }
-
-    /**
-     * Find Python 3.11 executable path
-     */
-    private function findPython311(): ?string
-    {
-        // Check common Python 3.11 locations
-        $possiblePaths = [
-            'C:\\Python311\\python.exe',
-            'C:\\Python\\Python311\\python.exe',
-            getenv('LOCALAPPDATA') . '\\Programs\\Python\\Python311\\python.exe',
-            getenv('USERPROFILE') . '\\AppData\\Local\\Programs\\Python\\Python311\\python.exe',
-        ];
-
-        foreach ($possiblePaths as $path) {
-            if ($path && file_exists($path)) {
-                return $path;
-            }
-        }
-
-        // Try using where command to find python3.11
-        $process = new Process(['where', 'python']);
-        $process->run();
-
-        if ($process->isSuccessful()) {
-            $paths = explode("\n", trim($process->getOutput()));
-            foreach ($paths as $path) {
-                $path = trim($path);
-                if (strpos($path, '311') !== false || strpos($path, '3.11') !== false) {
-                    return $path;
-                }
-            }
-        }
-
-        return null;
     }
 
     /**

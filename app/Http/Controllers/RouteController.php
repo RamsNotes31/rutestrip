@@ -208,6 +208,7 @@ class RouteController extends Controller
                 HikingRoute::create([
                     'name'                   => $routeName,
                     'gpx_file_path'          => $filePath,
+                    'route_coordinates'      => $result['route_coordinates'] ?? null,
                     'distance_km'            => $result['distance_km'] ?? null,
                     'elevation_gain_m'       => $result['elevation_gain_m'] ?? null,
                     'naismith_duration_hour' => $result['naismith_duration_hour'] ?? null,

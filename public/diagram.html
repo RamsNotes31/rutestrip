@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagram Fusi Narasi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .diagram-container { background: white; padding: 60px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-radius: 12px; position: relative; }
+        .box { border: 3px solid #00569c; border-radius: 8px; padding: 0; background: white; width: 220px; z-index: 10; position: relative; }
+        .box-header { padding: 12px 16px; text-align: center; font-weight: 700; color: #002b54; font-size: 15px; border-bottom: 2px solid #e2e8f0; line-height: 1.3; min-height: 60px; display: flex; align-items: center; justify-content: center; }
+        .box-body { padding: 16px; font-size: 13px; color: #334155; line-height: 1.5; height: 200px; }
+        .box-body ul { padding-left: 16px; margin: 0; list-style-type: disc; }
+        .box-body li { margin-bottom: 6px; }
+        
+        /* Arrow Styling */
+        .arrow-right { width: 40px; height: 6px; background-color: #00569c; position: relative; margin: 0 10px; }
+        .arrow-right::after { content: ''; position: absolute; right: -10px; top: -7px; width: 0; height: 0; border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-left: 14px solid #00569c; }
+        
+        .arrow-down { width: 6px; background-color: #00569c; position: relative; margin: 0 auto; }
+        .arrow-down::after { content: ''; position: absolute; bottom: -10px; left: -7px; width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 14px solid #00569c; }
+    </style>
+</head>
+<body>
+    <div class="diagram-container">
+        <!-- TOP ROW: The 4 boxes -->
+        <div class="flex items-center">
+            
+            <!-- Box 1 -->
+            <div class="box">
+                <div class="box-header">Data GPX<br>(Spasial)</div>
+                <div class="box-body">
+                    <ul>
+                        <li>GPS coordinates</li>
+                        <li>Elevation points</li>
+                        <li>Track points</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Arrow 1 -->
+            <div class="arrow-right"></div>
+
+            <!-- Box 2 -->
+            <div class="box">
+                <div class="box-header">MODUL<br>EKSTRAKTOR</div>
+                <div class="box-body">
+                    <ul>
+                        <li>distance_km: 11.10</li>
+                        <li>elevation_gain_m: 1,910</li>
+                        <li>naismith_duration: 5.40 jam</li>
+                        <li>average_grade: 17.21%</li>
+                        <li>difficulty: sulit</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Arrow 2 -->
+            <div class="arrow-right"></div>
+
+            <!-- Box 3 -->
+            <div class="box">
+                <div class="box-header">GENERATOR<br>NARASI</div>
+                <div class="box-body">
+                    Jalur pendakian dengan jarak panjang sekitar 11.10 kilometer. Estimasi waktu tempuh lama selama 5.40 jam...
+                </div>
+            </div>
+
+            <!-- Spacer between Box 3 and 4 -->
+            <div style="width: 40px;"></div>
+
+            <!-- Box 4 -->
+            <div class="box">
+                <div class="box-header">Deskripsi Manual<br>(Literatur)</div>
+                <div class="box-body">
+                    Jalur dengan sabana luas dan pemandangan sunrise spektakuler. Padang rumput hijau sepanjang perjalanan...
+                </div>
+            </div>
+            
+        </div>
+
+        <!-- 2 DOWN ARROWS from Box 3 and Box 4 -->
+        <div class="flex relative" style="height: 60px;">
+            <div style="width: 736px;"></div> <!-- Offset to align under box 3 -->
+            <div class="arrow-down" style="height: 60px; position:absolute; left: 630px"></div>
+            <div class="arrow-down" style="height: 60px; position:absolute; left: 890px"></div>
+        </div>
+
+        <!-- THE JOINING HORIZONTAL BAR and PLUS SIGN -->
+        <div class="flex justify-center relative mt-2">
+            <!-- connecting bar -->
+            <div style="width: 260px; height: 6px; background-color: #00569c; position: absolute; left: 630px; top: 22px;"></div>
+            
+            <!-- Arrow pointing into the plus -->
+            <div class="arrow-right" style="position: absolute; left: 695px; top: 22px; width:45px"></div>
+            <div style="position: absolute; left: 850px; top: 22px; width:40px; height: 6px; background-color: #00569c;">
+                <div style="position: absolute; left: -10px; top: -7px; width: 0; height: 0; border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-right: 14px solid #00569c;"></div>
+            </div>
+            
+            <div style="font-size: 55px; font-weight: 800; color: #00569c; background: white; padding: 0 10px; z-index: 20; position:relative; left: 247px; top: -10px;">
+                +
+            </div>
+        </div>
+
+        <!-- FINAL DOWN ARROW -->
+        <div class="flex relative" style="height: 40px;">
+            <div class="arrow-down" style="height: 40px; position:absolute; left: 760px; top: -10px;"></div>
+        </div>
+
+        <!-- FINAL BOX -->
+        <div class="flex relative justify-center mt-2" style="left: 246px;">
+            <div class="box" style="width: 260px; min-height: unset; height: auto;">
+                <div class="box-header" style="border-bottom: none; min-height: unset; padding: 16px;">
+                    NARASI GABUNGAN<br>(FUSI)
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
